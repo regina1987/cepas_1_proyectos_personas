@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<h1>Projects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Person</th>
+      <th>Person</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><% project.personas.each do |person|%>
+          <%= person.name %>
+          <%= link_to 'x', delete_project_persona_path(project, person), method: :delete, class: 'btn btn-danger'%>
+          <% end %>
+        </td>
+
+          <td><%= form_with(model: project.personas.build, url: projects_personas_path(project), local:true) do |f|%>
+
+                        <% if project.errors.any? %>
+                          <div id="error_explanation">
+                                <h2><%= pluralize(project.errors.count, "error") %> prohibited this post from being saved:</h2>
+                                    <ul>
+                                        <% project.errors.messages.each do |message| %>
+                                        <li><%= message %></li>
+                                        <% end %>
+                                        </ul>
+                            </div>
+                          <% end %>
+            <%= f.text_field :palabra%>
+            <%= f.submit%>
+              <% end %>
+                    </td>
+
+        <td><%= link_to 'Show', project %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project', new_project_path %>

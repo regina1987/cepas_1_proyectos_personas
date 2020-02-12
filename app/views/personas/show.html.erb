@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @persona.name %>
+</p>
+<p>
+  <strong>Projectos:</strong>
+  <% @persona.projects.each do |pr|%>
+    <%= pr.name %>
+    <br>
+    <% end %>
+</p>
+
+<%= link_to 'Edit', edit_persona_path(@persona) %> |
+<%= link_to 'Back', personas_path %>
